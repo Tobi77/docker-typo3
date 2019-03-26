@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  php-apache:
+    image: php:7.2.16-apache
+    build: _docker/php-apache
+    ports:
+      - 80:80
+    volumes:
+      - ./htdocs:/var/www/html
+    links:
+      - 'database'
+
+  database:
+    image: mariadb:10.1
+    #image: mysql:8
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: typo3
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+
+volumes:
+  database:
