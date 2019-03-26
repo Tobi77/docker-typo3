@@ -8,20 +8,14 @@ services:
     volumes:
       - ./htdocs:/var/www/html
     links:
-      - 'database'
+      - 'db'
 
-  database:
-    image: mariadb:10.1
-    #image: mysql:8
-    volumes:
-      - database:/var/lib/mysql
-    ports:
-      - 3306:3306
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: typo3
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
 
 volumes:
-  database:
+  db:
