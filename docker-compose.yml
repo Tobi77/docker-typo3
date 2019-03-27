@@ -34,5 +34,17 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
 
+  solr:
+    image: solr
+    container_name: solr_search
+    ports:
+      - 8983:8983
+    volumes:
+      - ./_docker/solr:/opt/solr/server/mycores
+    entrypoint:
+      - bash
+      - -c
+      - precreate-core core-de; precreate-core core-en; exec solr -f
+
 volumes:
   db:

@@ -23,6 +23,7 @@ Port: 3306
 - xdebug
 - apache vhost
 - mailhog
+- solr
 
 #### Todo
 
@@ -45,3 +46,7 @@ To use it, set the following settings in LocalConfiguration
 
     [MAIL][transport] = smtp
     [MAIL][transport_smtp_server] = mail:1025
+
+
+#### Solr
+Access solr via http://www.test.local:8983/
