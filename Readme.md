@@ -21,6 +21,7 @@ Port: 3306
 
 - xdebug
 - apache vhost
+- mailhog
 
 #### Todo
 
@@ -30,3 +31,16 @@ Port: 3306
 #### Gasmask 
 
     127.0.0.1 www.test.local
+
+#### xdebug
+
+xdebug is running on Port 9000 with the IDEkey PHPSTORM.
+
+
+#### MailHog
+Start using MailHog via http://www.test.local:8025/
+
+To use it, set the following settings in LocalConfiguration
+
+    [MAIL][transport] = smtp
+    [MAIL][transport_smtp_server] = mail:1025

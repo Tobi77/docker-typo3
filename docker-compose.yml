@@ -1,5 +1,13 @@
-version: '3.3'
+version: '3.6'
 services:
+
+  mail:
+    image: mailhog/mailhog
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+
   php-apache:
     image: php:7.2.16-apache
     build: _docker/php-apache
@@ -11,6 +19,7 @@ services:
       VIRTUAL_HOST: test.local
     links:
       - 'db'
+      - 'mail'
 
   db:
     image: mysql
