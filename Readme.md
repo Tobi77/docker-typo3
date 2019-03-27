@@ -6,7 +6,7 @@
 
 
 
-## Database
+### Database
 
 Username: root \
 Password: root \
@@ -14,10 +14,13 @@ Host: db \
 Port: 3306 
 
 
-## Todos
+#### Included settings
 
 - xdebug
-- vhost config
+- apache vhost
+
+#### Todo
+
 - git
 
 

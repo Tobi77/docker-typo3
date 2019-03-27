@@ -1,9 +1,10 @@
 FROM php:7.2.16-apache
 
-ENV PHP_INI_DIR /usr/local/etc/php
-
 #copy php.ini
-COPY php.ini $PHP_INI_DIR/
+COPY php.ini /usr/local/etc/php/
+
+#copy apache config
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 #update packaging tool
 RUN apt-get update
@@ -14,6 +15,9 @@ RUN docker-php-ext-configure zip --with-libzip && docker-php-ext-install zip
 
 #install php mysqli
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+#install php opcache
+RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
 
 #install php gd
 RUN apt-get install -y libpng-dev libjpeg62-turbo-dev libfreetype6-dev
@@ -36,4 +40,5 @@ RUN pecl install xdebug; \
     && echo "xdebug.remote_connect_back=0" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.max_nesting_level=400" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_host=${IP}" >> /usr/local/etc/php/conf.d/xdebug.ini
+    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_host=docker.for.mac.host.internal" >> /usr/local/etc/php/conf.d/xdebug.ini
