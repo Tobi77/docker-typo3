@@ -19,6 +19,7 @@ Port: 3306
 
 #### Included settings
 
+- SSL
 - xdebug
 - apache vhost
 - mailhog

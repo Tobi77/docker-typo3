@@ -3,8 +3,16 @@ FROM php:7.2.16-apache
 #copy php.ini
 COPY php.ini /usr/local/etc/php/
 
+#Enable SSL
+RUN a2enmod ssl
+
+#create ssl
+RUN cd /var/www/ && openssl genrsa -out www.test.local.key 2048
+RUN cd /var/www/ && openssl req -new -x509 -key www.test.local.key -out www.test.local.cert -days 3650 -subj /CN=www.test.local
+
 #copy apache config
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
+
 
 #update packaging tool
 RUN apt-get update
@@ -18,6 +26,10 @@ RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
 #install php opcache
 RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
+
+#install php soap
+RUN apt-get install -y libxml2-dev
+RUN docker-php-ext-install soap && docker-php-ext-enable soap
 
 #install php gd
 RUN apt-get install -y libpng-dev libjpeg62-turbo-dev libfreetype6-dev
